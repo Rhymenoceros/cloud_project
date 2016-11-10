@@ -1,19 +1,7 @@
-# Targeted Marketing with Amazon Machine Learning
+# Amazon Machine Learning without the console
 
-These examples show how to identify potential customers for targeted
-marketing campaigns, using a publicly available banking and marketing
-dataset from the University of California at Irvine (UCI) repository.
-This dataset contains information about customers as well as
-descriptions of their behavior in response to previous marketing
-contacts. You use this data to identify which customers are most
-likely to subscribe to a new product. In the sample dataset, the
-product is a bank term deposit. A bank term deposit is a deposit made
-into a bank with a fixed interest rate that cannot be withdrawn for a
-certain period of time, also known as a certificate of deposit (CD).
+This project is meant to demonstrate the functionality of the Amazon web service SDK for python (Boto). In particular it will show how to use Amazon’s machine learning service and the s3 storage service without logging into the amazon console and using the interface. 
 
-This code sample demonstrates how to use the Python SDK
-to build and use the ML Model described in the Getting Started
-tutorial.
 
 ## Setting up
 
@@ -26,6 +14,8 @@ The file should look like this (without spaces at the beginning of each line):
     [default]
     aws_access_key_id = YOUR_ACCESS_KEY_ID
     aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
+    
+
 
 ## Sample code
 
