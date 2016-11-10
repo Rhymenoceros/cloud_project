@@ -22,6 +22,9 @@ Useage:
 
 For example:
     python use_model.py ml-12345678901 0.77 s3://your-bucket/prefix
+
+
+changes and Additional functionality added by Samuel Kooy
 """
 import base64
 import boto3

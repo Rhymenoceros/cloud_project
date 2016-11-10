@@ -16,14 +16,15 @@ Demonstrates all the steps needed to build an ML Model
 for the targeted marketing example in the Getting Started Guide
 for Amazon Machine Learning
 
-Usage:
-    python build_model.py ["Optional name for created objects"]
+changes and Additional functionality added by Samuel Kooy 11/11/16
+
 """
 import base64
 import boto3
 import json
 import os
 import sys
+import run
 
 
 #TRAINING_DATA_S3_URL = "s3://cits5503-21328536/smallbank.csv"
@@ -122,17 +123,33 @@ def create_evaluation(ml, model_id, test_ds_id, name):
     return eval_id
 
 
+def get_bucket_name(url):
+    a = len(url)
+    count = 0
+    bucket = []
+    while(count < a):
+        if(url[5+count] == '/'):
+            break
+        bucket.append(url[5+count])
+        count += 1
+    return ''.join(bucket)
+
+
+
 if __name__ == "__main__":
     try:
         schema_fn = "schemas/banking.csv.schema"
         recipe_fn = "recipe.json"
         name = sys.argv[1]
         trainingData = sys.argv[2]
-
+        if len(sys.argv) > 3:
+            bucketName = get_bucket_name(sys.argv[2])
+            #print(trainingData[len(bucketName)+6:])
+            run.upload_to_s3(sys.argv[3], trainingData[(len(bucketName)+6):], bucketName)
     except:
         raise
     model_id = build_model(trainingData, schema_fn, recipe_fn, name=name)
     client = boto3.client('machinelearning')
     waiter = client.get_waiter("ml_model_available")
-    waiter.wait(FilterVariable = "Name", EQ = "wow model")
+    waiter.wait(FilterVariable = "Name", EQ = name +" model")
     print("The model ID " + model_id)
