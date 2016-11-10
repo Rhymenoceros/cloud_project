@@ -15,7 +15,14 @@ The file should look like this (without spaces at the beginning of each line):
     aws_access_key_id = YOUR_ACCESS_KEY_ID
     aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
     
+When producing batch-predictions results will be output to a s3 bucket. Make sure that the s3 bucket policy allows machine learning predictions to output there. The simplist way to set up the correct s3 bucket policy is to first run through a batch prediction using the amazon Machine learning console.   
+ 
+### Installation Requirements
 
+This code requires Python 2.7 and has compatibility issues with python 3.5
+
+Also make sure that Amazons python SDK boto3 is installed. It can be installed with the following pip command. 
+   `pip install boto3`
 
 ## Sample code
 
