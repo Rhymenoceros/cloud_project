@@ -21,8 +21,9 @@ When producing batch-predictions results will be output to a s3 bucket. Make sur
 
 This code requires Python 2.7 and has compatibility issues with python 3.5
 
-Also make sure that Amazons python SDK boto3 is installed. It can be installed with the following pip command. 
-   `pip install boto3`
+Also make sure that Amazons python SDK boto3 is installed. It can be installed with the following pip command.              
+
+`pip install boto3`
 
 ## Sample code
 
