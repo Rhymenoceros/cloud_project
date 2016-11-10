@@ -12,9 +12,9 @@
 # or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 """
-Demonstrates how to use an ML Model, by setting the score threshold, 
-and kicks off a batch prediction job, which uses the ML Model to 
-generate predictions on new data.  This script needs the id of the 
+Demonstrates how to use an ML Model, by setting the score threshold,
+and kicks off a batch prediction job, which uses the ML Model to
+generate predictions on new data.  This script needs the id of the
 ML Model to use.  It also requires the score threshold.
 
 Useage:
@@ -33,13 +33,13 @@ import time
 import urlparse
 
 # The URL of the sample data in S3
-UNSCORED_DATA_S3_URL = "s3://aml-sample-data/banking-batch.csv"
+s3_batch_url = "s3://cits5503-21328536/banking-batch.csv"
 
 
-def use_model(model_id, threshold, schema_fn, output_s3, data_s3url):
+def use_model(model_id, threshold, schema_fn, output_s3, data_s3url, predictionName):
     """Creates all the objects needed to build an ML Model & evaluate its quality.
     """
-    ml = boto3.client('machinelearning') 
+    ml = boto3.client('machinelearning')
 
     poll_until_completed(ml, model_id)  # Can't use it until it's COMPLETED
     ml.update_ml_model(MLModelId=model_id, ScoreThreshold=threshold)
@@ -49,12 +49,13 @@ def use_model(model_id, threshold, schema_fn, output_s3, data_s3url):
     ds_id = create_data_source_for_scoring(ml, data_s3url, schema_fn)
     ml.create_batch_prediction(
         BatchPredictionId=bp_id,
-        BatchPredictionName="Batch Prediction for marketing sample",
+        BatchPredictionName= predictionName,
         MLModelId=model_id,
         BatchPredictionDataSourceId=ds_id,
         OutputUri=output_s3
     )
     print("Created Batch Prediction %s" % bp_id)
+    return bp_id
 
 
 def poll_until_completed(ml, model_id):
@@ -102,5 +103,5 @@ if __name__ == "__main__":
     except:
         print(__doc__)
         raise
-    use_model(model_id, threshold, "banking-batch.csv.schema",
-              s3_output_url, UNSCORED_DATA_S3_URL)
+    use_model(model_id, threshold, "schemas/banking-batch.csv.schema",
+              s3_output_url, s3_batch_url, "Batch Prediction for marketing sample")

@@ -26,7 +26,7 @@ import os
 import sys
 
 
-TRAINING_DATA_S3_URL = "s3://aml-sample-data/banking.csv"
+#TRAINING_DATA_S3_URL = "s3://cits5503-21328536/smallbank.csv"
 
 
 def build_model(data_s3_url, schema_fn, recipe_fn, name, train_percent=70):
@@ -124,15 +124,15 @@ def create_evaluation(ml, model_id, test_ds_id, name):
 
 if __name__ == "__main__":
     try:
-        data_s3_url = TRAINING_DATA_S3_URL
-        schema_fn = "banking.csv.schema"
+        schema_fn = "schemas/banking.csv.schema"
         recipe_fn = "recipe.json"
-        if len(sys.argv) > 2:
-            name = sys.argv[1]
-        else:
-            name = "Marketing sample"
+        name = sys.argv[1]
+        trainingData = sys.argv[2]
+
     except:
         raise
-    model_id = build_model(data_s3_url, schema_fn, recipe_fn, name=name)
-    print("""\nFor the next step in the demo, run:
-    python use_model.py %s 0.77 s3://your-bucket/ml-output/""" % model_id)
+    model_id = build_model(trainingData, schema_fn, recipe_fn, name=name)
+    client = boto3.client('machinelearning')
+    waiter = client.get_waiter("ml_model_available")
+    waiter.wait(FilterVariable = "Name", EQ = "wow model")
+    print("The model ID " + model_id)
