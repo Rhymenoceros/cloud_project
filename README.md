@@ -39,15 +39,21 @@ or
     '`python build_model.py "model name" "s3://cits5503-21328536/bank_datasource.csv" datasource/bank_datasource`	
 
 
-use_model.py can be used to produce a set of batch predictions from a model. The first argument is the model ID. The second argument sets the score threshold. The third argument provides the s3 url where the predictions are outputted. 
+
+
+use_model.py can be used to produce a set of batch predictions from a model. The first argument is the model ID, this can be acquired after building a model. The second argument sets the score threshold. The third argument provides the s3 url where the predictions are soutputted. 
 
     `python use_model.py ml-12345678901 0.77 s3://your-bucket/ml-output/`
 
+
+	
 The third script will upload a batch of predictions to an s3 bucket, run analysis on the predictions and automatically download the predictions and place them in the predictions file. This script has three arguments. The first argument is the id of the model that will be used to make the predictions. The second argument is the batch of predictions you want analysed. The third argument is the name of the s3 bucket where the datasource and predictions will be stored. For example:
 
      `python run.py "ml-B3DNCK5KPUT" "batch/banking-batch.csv" "cits5503-21328536"`
 	   
 
+	   
+	   
 All models and predcition batches are aussumed to have the same schema as in the schemas folder. If you want to try a datasource with a different schema you must edit the schema file.   	   
 	   
 ##References
