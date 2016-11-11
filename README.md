@@ -7,7 +7,16 @@ Amazon web service provides a very nice interface for their machine learning con
 
 ## Setting up
 
+###Installation
+This code requires python version 2.7 to run. Also make sure that the aws SDK boto3 is installed. If you have pip intstalled this can be done with the command:
+
+    `pip install boto3`
+	
+You should also have an amazon s3 bucket prepared
+
 ### Configuring credentials
+
+To use amazons SDK you need to have an account with AWS and you must set up your creditials on the computer you plan on working on. The following info in configuring credentials section was taken from the sample machine learning code git readme.  
 
 By default, the SDK will look for a credentials file at `~/.aws/credentials` or
 `C:\Users\USER_NAME\.aws\credentials` for Windows users.
@@ -39,7 +48,7 @@ The third script will upload a batch of predictions to an s3 bucket, run analysi
      `python run.py "ml-B3DNCK5KPUT" "batch/banking-batch.csv" "cits5503-21328536"`
 	   
 
-All models and predcition batches are aussumed to have the same schema as in the schemas folder. If you want to try a datasource with a different schema you must edit the schema file  	   
+All models and predcition batches are aussumed to have the same schema as in the schemas folder. If you want to try a datasource with a different schema you must edit the schema file.   	   
 	   
 ##References
 Accessing s3 objects with code
