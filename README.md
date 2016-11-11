@@ -1,7 +1,7 @@
 # Amazon Machine Learning without the console
 
 
-This project is meant to demonstrate the functionality of the Amazon web service SDK for python (Boto). In particular it will show how to use Amazon’s machine learning service and the s3 storage service without logging into the amazon console and using the interface. 
+This project is meant to demonstrate the functionality of the Amazon web service SDK for python (Boto). In particular it will show how to use Amazonâ€™s machine learning service and the s3 storage service without logging into the amazon console and using the interface. 
 
 Amazon web service provides a very nice interface for their machine learning console that is simple and easy to use. What if you were a big company making daily batch predictions using similar data source schemas? It could be time consuming to have someone log into the aws ml console to make a new set of predictions everyday. An alternate to the aws web console is to use the aws api and write a script. The advantage of this is that the upload of the datasource, the analysis of the data and downloading the analysis can all be done automatically with one command. The purpose of this code is to reduce the time and effort in making batch predictions and models. 
 
@@ -30,6 +30,7 @@ The file should look like this (without spaces at the beginning of each line):
 
 There are three different scripts run.py, use_model.py and build_model.py.
 
+####build_model.py 
 build_model.py is used to create an amazon machine learning model. The script has been set up to use the document "bank_datasource.csv" in the datasource directory. This function takes two arguments and an optional third argument. The first is the name the model will be named. The second is the name of the s3 url to the datasource. you can optionally provide a third argument, this is the name of a datasource you want to upload to s3 and use. If you provide a third argument, the second argument will be used to decide what the name of the uploaded datasource will be in the s3 bucket. To run this script:
 
     `python build_model.py "model name" "s3://cits5503-21328536/bank_datasource.csv"`
@@ -40,13 +41,13 @@ or
 
 
 
-
+####use_model.py
 use_model.py can be used to produce a set of batch predictions from a model. The first argument is the model ID, this can be acquired after building a model. The second argument sets the score threshold. The third argument provides the s3 url where the predictions are soutputted. 
 
     `python use_model.py ml-12345678901 0.77 s3://your-bucket/ml-output/`
 
 
-	
+####run.py
 The third script will upload a batch of predictions to an s3 bucket, run analysis on the predictions and automatically download the predictions and place them in the predictions file. This script has three arguments. The first argument is the id of the model that will be used to make the predictions. The second argument is the batch of predictions you want analysed. The third argument is the name of the s3 bucket where the datasource and predictions will be stored. For example:
 
      `python run.py "ml-B3DNCK5KPUT" "batch/banking-batch.csv" "cits5503-21328536"`
