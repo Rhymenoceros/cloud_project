@@ -17,7 +17,6 @@ import os
 
 def upload_to_s3(uploadfile, newFileName, bucket):
     s3 = boto3.client('s3')
-    #open(uploadfile, 'rb')
     s3.upload_file(uploadfile, bucket, newFileName)
 
 def download_from_s3(s3file, newFileName, bucket):
@@ -42,18 +41,6 @@ def wait_for_s3(bucket, objectkey):
     print("waiting for file to be uploaded")
     waiter.wait(Bucket = bucket, Key = objectkey)
 
-"""
-if __name__ == "__main__":
-    bucket = 'cits5503-21328536'
-    #upload_to_s3("banking-batch.csv","banking-batch.csv",bucket)
-    #upload_and_predict()
-    #upload_to_s3("test.txt","dif" ,"s3://cits5503-21328536")
-    #download_from_s3()
-    #wait_for_entity()
-    #bucket_object_exists("sad",bucket)
-    print("ok i guess?")
-"""
-
 if __name__ == "__main__":
     #"s3://cits5503-21328536/b"
     try:
@@ -66,7 +53,7 @@ if __name__ == "__main__":
         upload_to_s3(batchfile, batchfile, bucket) #upload our batch of preditions to s3 bucket
         wait_for_s3(bucket, batchfile) #wait for upload to complete
         predictionName = filename
-        bp = use_model.use_model(model_id, 0.77, "schemas/banking-batch.csv.schema",url, url +'/'+ batchfile, predictionName)
+        bp = use_model.use_model(model_id, 0.77, "schemas/predictionSchema.csv.schema",url, url +'/'+ batchfile, predictionName)
         wait_for_batch_prediction(predictionName)
         results = url+"/batch-prediction/result/"+ bp +"-" + filename + ".gz"
         print(results)

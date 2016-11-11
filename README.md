@@ -3,6 +3,7 @@
 
 This project is meant to demonstrate the functionality of the Amazon web service SDK for python (Boto). In particular it will show how to use Amazon’s machine learning service and the s3 storage service without logging into the amazon console and using the interface. 
 
+Amazon web service provides a very nice interface for their machine learning console that is simple and easy to use. What if you were a big company making daily batch predictions using similar data source schemas? It could be time consuming to have someone log into the aws ml console to make a new set of predictions everyday. An alternate to the aws web console is to use the aws api and write a script. The advantage of this is that the upload of the datasource, the analysis of the data and downloading the analysis can all be done automatically with one command. The purpose of this code is to reduce the time and effort in making batch predictions and models. 
 
 ## Setting up
 
@@ -20,7 +21,7 @@ The file should look like this (without spaces at the beginning of each line):
 
 There are three different scripts run.py, use_model.py and build_model.py.
 
-build_model.py is used to create an amazon machine learning model. The script has been set up to use the document "bank_datasource.csv" in the datasource directory. The model is also preconfigured to use the schema in provided in the model directory. This function takes two arguments and an optional third argument. The first is the name the model will be named. The second is the name of the s3 url to the datasource. you can optionally provide a third argument, this is the name of a datasource you want to upload to s3 and use. If you provide a third argument, the second argument will be used to decide what the name of the uploaded datasource will be. To run this script:
+build_model.py is used to create an amazon machine learning model. The script has been set up to use the document "bank_datasource.csv" in the datasource directory. This function takes two arguments and an optional third argument. The first is the name the model will be named. The second is the name of the s3 url to the datasource. you can optionally provide a third argument, this is the name of a datasource you want to upload to s3 and use. If you provide a third argument, the second argument will be used to decide what the name of the uploaded datasource will be in the s3 bucket. To run this script:
 
     `python build_model.py "model name" "s3://cits5503-21328536/bank_datasource.csv"`
 
@@ -38,3 +39,14 @@ The third script will upload a batch of predictions to an s3 bucket, run analysi
      `python run.py "ml-B3DNCK5KPUT" "batch/banking-batch.csv" "cits5503-21328536"`
 	   
 
+All models and predcition batches are aussumed to have the same schema as in the schemas folder. If you want to try a datasource with a different schema you must edit the schema file  	   
+	   
+##References
+Accessing s3 objects with code
+	http://stackoverflow.com/questions/29378763/how-to-save-s3-object-to-a-file-using-boto3
+
+Boto3 Documnetation
+	https://boto3.readthedocs.io/en/latest/reference/services/machinelearning.html#waiters
+
+Sample machine learning code. This project is heavily based on targeted-marketing-python code
+	https://github.com/awslabs/machine-learning-samples 

@@ -138,7 +138,7 @@ def get_bucket_name(url):
 
 if __name__ == "__main__":
     try:
-        schema_fn = "schemas/banking.csv.schema"
+        schema_fn = "schemas/modelSchema.csv.schema"
         recipe_fn = "recipe.json"
         name = sys.argv[1]
         trainingData = sys.argv[2]

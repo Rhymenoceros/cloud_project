@@ -24,7 +24,7 @@ For example:
     python use_model.py ml-12345678901 0.77 s3://your-bucket/prefix
 
 
-changes and Additional functionality added by Samuel Kooy
+changes and Additional functionality added by Samuel Kooy 11/11/16
 """
 import base64
 import boto3
@@ -106,5 +106,5 @@ if __name__ == "__main__":
     except:
         print(__doc__)
         raise
-    use_model(model_id, threshold, "schemas/banking-batch.csv.schema",
+    use_model(model_id, threshold, "schemas/predictionSchema.csv.schema",
               s3_output_url, s3_batch_url, "Batch Prediction for marketing sample")
